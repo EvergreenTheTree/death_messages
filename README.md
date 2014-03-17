@@ -1,4 +1,16 @@
-death_messages
+______           _   _      ___  ___                                    
+|  _  \         | | | |     |  \/  |                                    
+| | | |___  __ _| |_| |__   | .  . | ___  ___ ___  __ _  __ _  ___  ___ 
+| | | / _ \/ _` | __| '_ \  | |\/| |/ _ \/ __/ __|/ _` |/ _` |/ _ \/ __|
+| |/ /  __/ (_| | |_| | | | | |  | |  __/\__ \__ \ (_| | (_| |  __/\__ \
+|___/ \___|\__,_|\__|_| |_| \_|  |_/\___||___/___/\__,_|\__, |\___||___/
+                                                         __/ |          
+                                                        |___/           
 ==============
 
-A Minetest mod which sends a chat message when a player dies
+A Minetest mod which sends a chat message when a player dies.
+
+License of source code: 
+CC0 1.0 Universal
+See LICENSE.txt for full legal text
+
