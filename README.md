@@ -1,0 +1,4 @@
+death_messages
+==============
+
+A Minetest mod which sends a chat message when a player dies
