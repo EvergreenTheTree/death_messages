@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------------
 local title	= "Death Messages"
-local version = "0.1.1"
+local version = "0.1.2"
 local mname	= "death_messages"
 -----------------------------------------------------------------------------------------------
 dofile(minetest.get_modpath("death_messages").."/settings.txt")
