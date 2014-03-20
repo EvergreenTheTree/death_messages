@@ -49,18 +49,18 @@ messages.other = {
 if RANDOM_MESSAGES == true then
 	minetest.register_on_dieplayer(function(player)
 		local player_name = player:get_player_name()
+		local node = minetest.registered_nodes[minetest.get_node(player:getpos()).name]
 		if minetest.is_singleplayer() then
 			player_name = "You"
 		end
 		-- Death by lava
-		local nodename = minetest.get_node(player:getpos()).name
-		if nodename == "default:lava_source" or nodename == "default:lava_flowing" then
+		if node.groups.lava ~= nil then
 			minetest.chat_send_all(player_name ..  messages.lava[math.random(1,#messages.lava)] )
 		-- Death by drowning
-		elseif nodename == "default:water_source" or nodename == "default:water_flowing" then
+		elseif node.groups.water ~= nil then
 			minetest.chat_send_all(player_name ..  messages.water[math.random(1,#messages.water)] )
 		-- Death by fire
-		elseif nodename == "fire:basic_flame" then
+		elseif node.name == "fire:basic_flame" then
 			minetest.chat_send_all(player_name ..  messages.fire[math.random(1,#messages.fire)] )
 		-- Death by something else
 		else
@@ -72,18 +72,18 @@ if RANDOM_MESSAGES == true then
 else
 	minetest.register_on_dieplayer(function(player)
 		local player_name = player:get_player_name()
+		local node = minetest.registered_nodes[minetest.get_node(player:getpos()).name]
 		if minetest.is_singleplayer() then
 			player_name = "You"
 		end
 		-- Death by lava
-		local nodename = minetest.get_node(player:getpos()).name
-		if nodename == "default:lava_source" or nodename == "default:lava_flowing" then
+		if node.groups.lava ~= nil then
 			minetest.chat_send_all(player_name .. " melted into a ball of fire")
 		-- Death by drowning
-		elseif nodename == "default:water_source" or nodename == "default:water_flowing" then
+		elseif node.groups.water ~= nil then
 			minetest.chat_send_all(player_name .. " ran out of air.")
 		-- Death by fire
-		elseif nodename == "fire:basic_flame" then
+		elseif node.name == "fire:basic_flame" then
 			minetest.chat_send_all(player_name .. " burned to a crisp.")
 		-- Death by something else
 		else
