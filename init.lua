@@ -57,7 +57,7 @@ if RANDOM_MESSAGES == true then
 		if node.groups.lava ~= nil then
 			minetest.chat_send_all(player_name ..  messages.lava[math.random(1,#messages.lava)] )
 		-- Death by drowning
-		elseif node.groups.water ~= nil then
+		elseif player:get_breath() == 0 then
 			minetest.chat_send_all(player_name ..  messages.water[math.random(1,#messages.water)] )
 		-- Death by fire
 		elseif node.name == "fire:basic_flame" then
@@ -80,7 +80,7 @@ else
 		if node.groups.lava ~= nil then
 			minetest.chat_send_all(player_name .. " melted into a ball of fire")
 		-- Death by drowning
-		elseif node.groups.water ~= nil then
+		elseif player:get_breath() == 0 then
 			minetest.chat_send_all(player_name .. " ran out of air.")
 		-- Death by fire
 		elseif node.name == "fire:basic_flame" then
