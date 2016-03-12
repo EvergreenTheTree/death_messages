@@ -38,7 +38,6 @@ messages.lava = {
 	" didn't know lava was hot."
 	" dived into a pool of lava and hit their head."
 	"'s goose was cooked."
-
 }
 
 -- Drowning death messages
