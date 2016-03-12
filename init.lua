@@ -36,6 +36,9 @@ messages.lava = {
 	" couldn't resist that warm glow of lava.",
 	" dug straight down.",
 	" didn't know lava was hot."
+	" dived into a pool of lava and hit their head."
+	"'s goose was cooked."
+
 }
 
 -- Drowning death messages
@@ -46,6 +49,12 @@ messages.water = {
 	" tried to impersonate an anchor.",
 	" forgot he wasn't a fish.",
 	" blew one too many bubbles."
+	" is sleeping with the fishes."
+	" regrets skipping the swimming lessons."
+	" tried to swim in cement shoes."
+	" took \"our ancestors were fish\" the wrong way."
+	" forgot to wear a life jacket."
+	" went to Davy Jones's locker."
 }
 
 -- Burning death messages
@@ -55,6 +64,14 @@ messages.fire = {
 	" got too close to the camp fire.",
 	" just got roasted, hotdog style.",
 	" gout burned up. More light that way."
+	" spontaneously combusted."
+	"'s goose was cooked."
+	" found out they were highly flammable."
+	" may need some ice for that burn."
+	" tried to make love to a campfire."
+	" walked on hot coals."
+	" was fired."
+	"'s fire eating performance took a turn for the worse."
 }
 
 -- Other death messages
@@ -64,6 +81,16 @@ messages.other = {
 	" gave up on life.",
 	" is somewhat dead now.",
 	" passed out -permanently."
+	" got to test the theory of the eternal soul."
+	" wanted to see if reincarnation was true."
+	" is now a candidate for the Darwin Awards."
+	" removed themselves from the gene pool."
+	" bit the dust."
+	" came to a sticky end."
+	" is now dead as a dodo."
+	" kicked the bucket."
+	" was too good for this world."
+	" cashed in their chips."
 }
 
 function get_message(mtype)
