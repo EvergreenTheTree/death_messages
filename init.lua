@@ -104,7 +104,7 @@ minetest.register_on_dieplayer(function(player)
 	local player_name = player:get_player_name()
 	local node = minetest.registered_nodes[minetest.get_node(player:getpos()).name]
 	if minetest.is_singleplayer() then
-		player_name = "You"
+		player_name = "The player"
 	end
 	-- Death by lava
 	if node.groups.lava ~= nil then
