@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 -----------------------------------------------------------------------------------------------
 local title = "Death Messages"
-local version = "0.1.2"
+local version = "0.1.3"
 local mname = "death_messages"
 -----------------------------------------------------------------------------------------------
 dofile(minetest.get_modpath("death_messages").."/settings.txt")
@@ -115,7 +115,7 @@ messages.other = {
 	" let themselves down...",
 	" became deceased."
 	" went to pieces!",
-	" goooooooooooooooooooooooooooooooot dunke on!"
+	" goooooooooooooooooooooooooooooooot dunked on!"
 }
 
 function get_message(mtype)
