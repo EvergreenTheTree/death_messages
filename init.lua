@@ -24,6 +24,13 @@ local mname = "death_messages"
 dofile(minetest.get_modpath("death_messages").."/settings.txt")
 -----------------------------------------------------------------------------------------------
 
+--[[
+   Disabled standard death messages until chat-spam
+   as a result of taking damage after death (f.ex. from lava)
+]]--
+
+
+--[[
 -- A table of quips for death messages.  The first item in each sub table is the
 -- default message used when RANDOM_MESSAGES is disabled.
 local messages = {}
@@ -62,8 +69,8 @@ messages.other = {
 	" died.",
 	" did something fatal.",
 	" gave up on life.",
-	" is somewhat dead now.",
-	" passed out -permanently."
+	" died.",
+	" wasn't meant for this world."
 }
 
 function get_message(mtype)
@@ -95,7 +102,32 @@ minetest.register_on_dieplayer(function(player)
 	end
 
 end)
+]]--
 
+-- Add "PLAYER KILLED PLAYER"-messages
+minetest.register_on_punchplayer(function(player, hitter)
+   if not (player or hitter) then
+      return false
+   end
+   if not hitter:get_player_name() == "" then
+      return false
+   end
+   minetest.after(0, function()
+      if player:get_hp() == 0 and hitter:get_player_name() ~= "" and hitter:get_wielded_item() and hitter:get_wielded_item():get_name() and minetest.registered_tools[hitter:get_wielded_item():get_name()] then
+         minetest.chat_send_all(player:get_player_name().." was killed by "..hitter:get_player_name().." with a "..minetest.registered_tools[hitter:get_wielded_item():get_name()].description..".")
+	 print(player:get_player_name().." was killed by "..hitter:get_player_name().." with "..minetest.registered_tools[hitter:get_wielded_item():get_name()].description..".")
+         return true
+      elseif player:get_hp() == 0 and hitter:get_player_name() ~= "" and hitter:get_wielded_item() then
+         minetest.chat_send_all(hitter:get_player_name().." killed "..player:get_player_name().." with bare fists!")
+         print(player:get_player_name().." was killed by "..hitter:get_player_name().." with bare fists.")
+      elseif hitter:get_player_name() == "" and player:get_hp() == 0 then
+         minetest.chat_send_all(player:get_player_name().." was killed by "..hitter:get_luaentity().name..".")
+         print(player:get_player_name().." was killed by "..hitter:get_luaentity().name..".")
+      else
+         return false
+      end
+   end)
+end)
 -----------------------------------------------------------------------------------------------
 print("[Mod] "..title.." ["..version.."] ["..mname.."] Loaded...")
 -----------------------------------------------------------------------------------------------
