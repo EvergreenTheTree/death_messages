@@ -26,7 +26,8 @@ dofile(minetest.get_modpath("death_messages").."/settings.txt")
 
 --[[
    Disabled standard death messages until chat-spam
-   as a result of taking damage after death (f.ex. from lava)
+   as a result of taking damage after death 
+   (f.ex. from lava) is fixed.
 ]]--
 
 
