@@ -24,14 +24,7 @@ local mname = "death_messages"
 dofile(minetest.get_modpath("death_messages").."/settings.txt")
 -----------------------------------------------------------------------------------------------
 
---[[
-   Disabled standard death messages until chat-spam
-   as a result of taking damage after death 
-   (f.ex. from lava) is fixed.
-]]--
 
-
---[[
 -- A table of quips for death messages.  The first item in each sub table is the
 -- default message used when RANDOM_MESSAGES is disabled.
 local messages = {}
@@ -103,7 +96,6 @@ minetest.register_on_dieplayer(function(player)
 	end
 
 end)
-]]--
 
 -- PM from server with death coordinates
 minetest.register_on_dieplayer(function(player)
