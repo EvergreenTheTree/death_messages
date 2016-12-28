@@ -105,6 +105,17 @@ minetest.register_on_dieplayer(function(player)
 end)
 ]]--
 
+-- PM from server with death coordinates
+minetest.register_on_dieplayer(function(player)
+      local name=player:get_player_name()
+      local playerpos = player:getpos()
+      local x = tostring(math.floor(playerpos["x"]))
+      local y = tostring(math.floor(playerpos["y"]))
+      local z = tostring(math.floor(playerpos["z"]))
+      minetest.chat_send_player(player:get_player_name(),"PM from server: Your bones are located at " .. x .. ", " .. y .. ", " .. z .. ". You'd better go and get them before someone else does!")
+      print("****** " .. player:get_player_name() .. " died at " .. x .. ", " .. y .. ", " .. z .. " ******")
+end)
+
 -- Add "PLAYER KILLED PLAYER"-messages
 minetest.register_on_punchplayer(function(player, hitter)
    if not (player or hitter) then
