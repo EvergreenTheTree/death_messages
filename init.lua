@@ -1,6 +1,6 @@
 --[[
 death_messages - A Minetest mod which sends a chat message when a player dies.
-Copyright (C) 2016  EvergreenTree
+Copyright (C) 2017 bark
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,11 +18,68 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 -----------------------------------------------------------------------------------------------
 local title = "Death Messages"
-local version = "0.1.2"
+local version = "0.1.4"
 local mname = "death_messages"
 -----------------------------------------------------------------------------------------------
 dofile(minetest.get_modpath("death_messages").."/settings.txt")
 -----------------------------------------------------------------------------------------------
+
+-- PM from server with death coordinates
+minetest.register_on_dieplayer(function(player)
+      local name=player:get_player_name()
+      local playerpos = player:getpos()
+      local x = tostring(math.floor(playerpos["x"]))
+      local y = tostring(math.floor(playerpos["y"]))
+      local z = tostring(math.floor(playerpos["z"]))
+      minetest.chat_send_player(player:get_player_name(), core.colorize("#dbdbdb", "PM from Server: ").. core.colorize("#dbdbdb", "Your bones are located at ") .. core.colorize("#fdff9a", x .. ", " .. y .. ", " .. z) .. core.colorize("#dbdbdb",". Better go get them before someone else does!"))
+      print("****** " .. player:get_player_name() .. " died at " .. x .. ", " .. y .. ", " .. z .. " ******")
+end)
+
+-- "PLAYER KILLED PLAYER"-messages
+minetest.register_on_punchplayer(function(player, hitter)
+   if not (player or hitter) then
+      return false
+   end
+   if not hitter:get_player_name() == "" then
+      return false
+   end
+   minetest.after(0, function()
+      --  When player kills player with registered_tool
+      if player:get_hp() == 0 and hitter:get_player_name() ~= "" and hitter:get_wielded_item() and hitter:get_wielded_item():get_name() and minetest.registered_tools[hitter:get_wielded_item():get_name()] then
+         minetest.chat_send_all(core.colorize("#ae0c13", player:get_player_name().." was killed by "..hitter:get_player_name().." with a "..minetest.registered_tools[hitter:get_wielded_item():get_name()].description.."."))
+	 print(player:get_player_name().." was killed by "..hitter:get_player_name().." with "..minetest.registered_tools[hitter:get_wielded_item():get_name()].description..".")
+         return true
+      -- When player kills player with node
+      elseif player:get_hp() == 0 and hitter:get_player_name() ~= "" and hitter:get_wielded_item() and hitter:get_wielded_item():get_name() and minetest.registered_nodes[hitter:get_wielded_item():get_name()] then
+         minetest.chat_send_all(core.colorize("#ae0c13", hitter:get_player_name().." killed "..player:get_player_name().. " with a " ..minetest.registered_nodes[hitter:get_wielded_item():get_name()].description.."."))
+         print(player:get_player_name().." was killed by "..hitter:get_player_name().." with a node.")   
+         return true  
+      --  When player kills player with bare fists
+      elseif player:get_hp() == 0 and hitter:get_player_name() ~= "" and hitter:get_wielded_item() then
+         minetest.chat_send_all(core.colorize("#8ae0c13", hitter:get_player_name().." killed "..player:get_player_name().." with bare fists!"))
+         print(player:get_player_name().." was killed by "..hitter:get_player_name().." with bare fists.")
+         return true
+           -- When player kills entity or vv
+      elseif hitter:get_player_name() == "" and player:get_hp() == 0 then
+         minetest.chat_send_all(core.colorize("#ae0c13", player:get_player_name().." was killed by "..hitter:get_luaentity().name.."."))
+         print(player:get_player_name().." was killed by "..hitter:get_luaentity().name..".")
+      else
+         return false
+      end
+   end)
+end)
+--[[ 
+-- Teleport dead players  to limbo location, to prevent chat spam when player is takin
+g damage after death.
+DOESN'T WORK .. PLAYERS ARE TELEPORTED TO LIMBO BEFORE BONES ARE GENERATED. BONES END UP IN LIMBO INSTEAD OF DEATH LOCATION
+
+minetest.register_on_dieplayer(function(player)
+	if minetest.registered_nodes contains "bones:bones" then
+		local player_name = player:get_player_name()
+		local LIMBO = "18, -24, 30"
+		minetest.get_player_by_name(player_name):setpos(minetest.string_to_pos(LIMBO))
+end)
+]]--
 
 -- A table of quips for death messages.  The first item in each sub table is the
 -- default message used when RANDOM_MESSAGES is disabled.
@@ -61,11 +118,10 @@ messages.fire = {
 messages.other = {
 	" died.",
 	" did something fatal.",
-	" gave up on life.",
-	" is somewhat dead now.",
-	" passed out -permanently."
+	" died.",
+	" wasn't meant for this world."
 }
-
+--[[
 function get_message(mtype)
 	if RANDOM_MESSAGES then
 		return messages[mtype][math.random(1, #messages[mtype])]
@@ -86,16 +142,16 @@ minetest.register_on_dieplayer(function(player)
 	-- Death by drowning
 	elseif player:get_breath() == 0 then
 		minetest.chat_send_all(player_name .. get_message("water"))
-	-- Death by fire
+-- Death by fire
 	elseif node.name == "fire:basic_flame" then
 		minetest.chat_send_all(player_name .. get_message("fire"))
 	-- Death by something else
 	else
 		minetest.chat_send_all(player_name .. get_message("other"))
-	end
+end
 
 end)
-
+]]--
 -----------------------------------------------------------------------------------------------
 print("[Mod] "..title.." ["..version.."] ["..mname.."] Loaded...")
 -----------------------------------------------------------------------------------------------
