@@ -7,7 +7,7 @@
 
 A Minetest mod which sends a chat message when a player dies.
 
-Version: 0.1.3
+Version: 0.1.4
 License: GPL v3 (see LICENSE.txt)
 
 Dependencies:
