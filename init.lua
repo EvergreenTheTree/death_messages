@@ -43,7 +43,7 @@ messages.water = {
     " ran out of air.",
     " failed at swimming lessons.",
     " tried to impersonate an anchor.",
-    " forgot he wasn't a fish.",
+    " forgot to breathe.",
     " blew one too many bubbles."
 }
 
