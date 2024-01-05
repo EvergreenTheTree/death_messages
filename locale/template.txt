@@ -1,0 +1,23 @@
+# textdomain: death_messages
+%s melted into a ball of fire.=
+%s thought lava was cool.=
+%s couldn't resist that warm glow of lava.=
+%s dug straight down.=
+%s didn't know lava was hot.=
+%s drowned.=
+%s ran out of air.=
+%s failed at swimming lessons.=
+%s tried to impersonate an anchor.=
+%s forgot they aren't a fish.=
+%s blew one too many bubbles.=
+%s burned to a crisp.=
+%s got a little too warm.=
+%s got too close to the camp fire.=
+%s just got roasted, hotdog style.=
+%s got burned up. More light that way.=
+%s died.=
+%s did something fatal.=
+%s gave up on life.=
+%s is somewhat dead now.=
+%s passed out -permanently.=
+You=

@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 local title = "Death Messages"
 local version = "0.1.4"
 local mname = "death_messages"
+local S = minetest.get_translator("death_messages")
 --------------------------------------------------------------------------------
 dofile(minetest.get_modpath("death_messages").."/settings.txt")
 --------------------------------------------------------------------------------
@@ -30,40 +31,40 @@ local messages = {}
 
 -- Lava death messages
 messages.lava = {
-    " melted into a ball of fire.",
-    " thought lava was cool.",
-    " melted into a ball of fire.",
-    " couldn't resist that warm glow of lava.",
-    " dug straight down.",
-    " didn't know lava was hot."
+    S("%s melted into a ball of fire."),
+    S("%s thought lava was cool."),
+    S("%s melted into a ball of fire."),
+    S("%s couldn't resist that warm glow of lava."),
+    S("%s dug straight down."),
+    S("%s didn't know lava was hot.")
 }
 
 -- Drowning death messages
 messages.water = {
-    " drowned.",
-    " ran out of air.",
-    " failed at swimming lessons.",
-    " tried to impersonate an anchor.",
-    " forgot he wasn't a fish.",
-    " blew one too many bubbles."
+    S("%s drowned."),
+    S("%s ran out of air."),
+    S("%s failed at swimming lessons."),
+    S("%s tried to impersonate an anchor."),
+    S("%s forgot they aren't a fish."),
+    S("%s blew one too many bubbles.")
 }
 
 -- Burning death messages
 messages.fire = {
-    " burned to a crisp.",
-    " got a little too warm.",
-    " got too close to the camp fire.",
-    " just got roasted, hotdog style.",
-    " got burned up. More light that way."
+    S("%s burned to a crisp."),
+    S("%s got a little too warm."),
+    S("%s got too close to the camp fire."),
+    S("%s just got roasted, hotdog style."),
+    S("%s got burned up. More light that way.")
 }
 
 -- Other death messages
 messages.other = {
-    " died.",
-    " did something fatal.",
-    " gave up on life.",
-    " is somewhat dead now.",
-    " passed out -permanently."
+    S("%s died."),
+    S("%s did something fatal."),
+    S("%s gave up on life."),
+    S("%s is somewhat dead now."),
+    S("%s passed out -permanently.")
 }
 
 function get_message(mtype)
@@ -75,27 +76,37 @@ function get_message(mtype)
 end
 
 minetest.register_on_dieplayer(function(player)
-    local player_name = player:get_player_name()
+    local cadaver_name = player:get_player_name()
     local node = minetest.registered_nodes[
         minetest.get_node(player:getpos()).name
     ]
     if minetest.is_singleplayer() then
-        player_name = "You"
-    end
-    -- Death by lava
-    if node.groups.lava ~= nil then
-        minetest.chat_send_all(player_name .. get_message("lava"))
-    -- Death by drowning
-    elseif player:get_breath() == 0 then
-        minetest.chat_send_all(player_name .. get_message("water"))
-    -- Death by fire
-    elseif node.name == "fire:basic_flame" then
-        minetest.chat_send_all(player_name .. get_message("fire"))
-    -- Death by something else
-    else
-        minetest.chat_send_all(player_name .. get_message("other"))
+        cadaver_name = S("You")
     end
 
+ -- Death by something else
+    local msg = get_message("other")
+    -- Death by lava
+    if node.groups.lava ~= nil then
+        msg = get_message("lava")
+    -- Death by drowning
+    elseif player:get_breath() == 0 then
+        msg = get_message("water")
+    -- Death by fire
+    elseif node.name == "fire:basic_flame" then
+        msg = get_message("fire")
+    end
+
+    for _, player in ipairs(minetest.get_connected_players()) do
+        local ricevee_name = player:get_player_name()
+        local info = minetest.get_player_information(ricevee_name)
+        local lang = (info and info.lang_code) or "en"
+        local translated_msg = minetest.get_translated_string(lang, msg)
+
+        if ricevee_name then
+            minetest.chat_send_player(ricevee_name, translated_msg:gsub("%%s", cadaver_name))
+        end
+    end
 end)
 
 --------------------------------------------------------------------------------
