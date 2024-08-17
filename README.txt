@@ -1,5 +1,5 @@
 As of 2024-08-17, this mod will probably not be updated by me as I lost interest
-in Minetest a long time ago and probably will probably not be coming back.
+in Minetest a long time ago and probably will not be coming back.
 
 If you do want to make any changes, here was my list of TODO items that I never got around to:
 - Update meta stuff (readme, version, mod.conf, etc.)
