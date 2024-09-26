@@ -32,7 +32,6 @@ local messages = {}
 messages.lava = {
     " melted into a ball of fire.",
     " thought lava was cool.",
-    " melted into a ball of fire.",
     " couldn't resist that warm glow of lava.",
     " dug straight down.",
     " didn't know lava was hot."
@@ -44,7 +43,7 @@ messages.water = {
     " ran out of air.",
     " failed at swimming lessons.",
     " tried to impersonate an anchor.",
-    " forgot he wasn't a fish.",
+    " forgot to breathe.",
     " blew one too many bubbles."
 }
 
